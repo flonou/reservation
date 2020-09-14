@@ -159,7 +159,10 @@ class PluginReservationTask extends CommonDBTM
                         WHERE `reservations_id`='" . $reservation->fields["id"] . "'";
                $DB->query($query) or die("error on 'update' into checkReservations conflict : " . $DB->error());
             } else {
-               $task->log("conflit for reservation " . $conflict_reservation->fields['id'] . " ontiem " . $item->fields['name'] . " used by " . $formatName . " (from " . date("d-m-Y \à H:i:s", strtotime($conflict['begin'])) . " to " . date("d-m-Y \à H:i:s", strtotime($conflict['end']).")"));
+               $startResa = Html::convDateTime($conflict['begin']);
+               $endResa = Html::convDateTime($conflict['end']);
+
+               $task->log("conflict for reservation " . $conflict_reservation->fields['id'] . " ontiem " . $itemName . " used by " . $formatName . " (from " . $startResa . " to " .$endResa .")");
                NotificationEvent::raiseEvent('plugin_reservation_conflict_new_user', $conflict_reservation, ['other_user_id' => $res['users_id']]);
                NotificationEvent::raiseEvent('plugin_reservation_conflict_previous_user', $reservation, ['other_user_id' => $conflict['users_id']]);
             }

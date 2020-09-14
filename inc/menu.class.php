@@ -348,9 +348,12 @@ class PluginReservationMenu extends CommonGLPI
                } else {
                   $rowspan_end++;
                }
+               $startResa = Html::convDateTime($reservation->fields['begin']);
+               $endResa = Html::convDateTime($reservation_user_info['baselinedate']);
 
                // date begin
-               echo "<td rowspan=" . $rowspan_line . " $color>".date(self::getDateFormat()." \à H:i:s", strtotime($reservation->fields['begin']))."</td>";
+               #echo "<td rowspan=" . $rowspan_line . " $color>".date(self::getDateFormat()." \à H:i:s", strtotime($reservation->fields['begin']))."</td>";
+               echo "<td rowspan=" . $rowspan_line . " $color>".$startResa."</td>";
                // date end
                echo "<td rowspan=" . $rowspan_line . " $color>".date(self::getDateFormat()." \à H:i:s", strtotime($reservation_user_info['baselinedate']))."</td>";
 

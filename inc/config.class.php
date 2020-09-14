@@ -60,7 +60,7 @@ class PluginReservationConfig extends CommonDBTM
       $extension_time = $this->getConfigurationValue("extension_time", 'default');
       echo '<tr class="tab_bg_2">';
       echo "<td>";
-      echo __('Duration added (in hour) to reservations expiring and not checkout', "reservation");
+      echo __('Duration added (in hour) to reservations expiring and not checked out', "reservation");
       echo "<br>";
       echo __('By defaut, use value of <b>step for the hours</b> defined in <I>General Setup > Assistance</I>', "reservation") . " : ";
       echo "<select name=\"extension_time\">";
@@ -111,7 +111,7 @@ class PluginReservationConfig extends CommonDBTM
          echo '<tr class="tab_bg_2" id="checkin_timeout" style="display:none;" >';
       }
       echo "<td>";
-      echo __('Waiting time (in hour) to cancel the unclaimed reservation', "reservation") . " : ";
+      echo __('Waiting time (in hour) to cancel an unclaimed reservation', "reservation") . " : ";
       echo "<select name=\"checkin_timeout\">";
       for ($h = 1; $h <= 24; $h++) {
          echo "<option value=\"" . $h . "\" " . ($checkin_timeout == $h ? 'selected="selected"' : '') . ">" . $h . " </option>";
