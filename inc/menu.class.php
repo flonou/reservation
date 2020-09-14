@@ -183,23 +183,6 @@ class PluginReservationMenu extends CommonGLPI
       return true;
    }
 
-
-   static function getDateFormat() {
-      $format = $_SESSION["glpidate_format"];
-
-      switch ($format) {
-         case '0':
-         return 'Y-m-d';
-         break;
-         case '1':
-         return 'd-m-Y';
-         break;
-         case '2':
-         return 'm-d-y';
-         break;
-      }
-   }
-
    /**
     *
     */
@@ -352,10 +335,9 @@ class PluginReservationMenu extends CommonGLPI
                $endResa = Html::convDateTime($reservation_user_info['baselinedate']);
 
                // date begin
-               #echo "<td rowspan=" . $rowspan_line . " $color>".date(self::getDateFormat()." \à H:i:s", strtotime($reservation->fields['begin']))."</td>";
                echo "<td rowspan=" . $rowspan_line . " $color>".$startResa."</td>";
                // date end
-               echo "<td rowspan=" . $rowspan_line . " $color>".date(self::getDateFormat()." \à H:i:s", strtotime($reservation_user_info['baselinedate']))."</td>";
+               echo "<td rowspan=" . $rowspan_line . " $color>".$endResa."</td>";
 
                // comment
                echo "<td rowspan=" . $rowspan_line . " $color>".$reservation->fields['comment']."</td>";
@@ -375,7 +357,7 @@ class PluginReservationMenu extends CommonGLPI
             // checkin buttons or date checkin
             if ($checkin_enable) {
                if ($reservation_user_info['checkindate'] != null) {
-                  echo "<td>" . date(self::getDateFormat()." \à H:i:s", strtotime($reservation_user_info['checkindate'])) . "</td>";
+                  echo "<td>" . Html::convDateTime($reservation->fields[$reservation_user_info['checkindate']) . "</td>";
                } else {
                   echo "<td><center><a href=\"".Toolbox::getItemTypeSearchURL(__CLASS__)."?checkin=" . $reservation_user_info['reservations_id'] . "\"><img title=\"" . _sx('tooltip', 'Set As Gone', "reservation") . "\" alt=\"\" src=\"../pics/redbutton.png\"></img></a></center></td>";
                }
@@ -383,7 +365,7 @@ class PluginReservationMenu extends CommonGLPI
 
             // checkout buttons or date checkout
             if ($reservation_user_info['effectivedate'] != null) {
-               echo "<td>" . date(self::getDateFormat()." \à H:i:s", strtotime($reservation_user_info['effectivedate'])) . "</td>";
+               echo "<td>" . Html::convDateTime($reservation->fields[reservation_user_info['effectivedate']) . "</td>";
             } else {
                echo "<td><center><a href=\"".Toolbox::getItemTypeSearchURL(__CLASS__)."?checkout=" . $reservation_user_info['reservations_id'] . "\"><img title=\"" . _sx('tooltip', 'Set As Returned', "reservation") . "\" alt=\"\" src=\"../pics/greenbutton.png\"></img></a></center></td>";
             }
@@ -435,7 +417,7 @@ class PluginReservationMenu extends CommonGLPI
                   echo "<li><a class=\"bouton\" title=\"" . _sx('tooltip', 'Send an e-mail for the late reservation', "reservation") . "\" href=\"".Toolbox::getItemTypeSearchURL(__CLASS__)."?mailuser=" . $reservation_user_info['reservations_id'] . "\">" . _sx('button', 'Send an e-mail', "reservation") . "</a></li>";
                   if (isset($reservation_user_info['mailingdate'])) {
                      echo "<li>" . __('Last e-mail sent on', "reservation") . " </li>";
-                     echo "<li>" . date(self::getDateFormat()." H:i:s", strtotime($reservation_user_info['mailingdate'])) . "</li>";
+                     echo "<li>" . Html::convDateTime($reservation->fields[$reservation_user_info['mailingdate']) . "</li>";
                   }
                }
                echo "</ul>";
