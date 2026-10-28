@@ -213,7 +213,7 @@ function plugin_item_update_reservation($reservation)
     }
 
     if ($resume) {
-        $DB->updateOrDie(
+        $DB->update(
             'glpi_plugin_reservation_reservations',
             [
                 'baselinedate' => $end,
@@ -224,7 +224,7 @@ function plugin_item_update_reservation($reservation)
             ]
         );
     } else {
-        $DB->updateOrDie(
+        $DB->update(
             'glpi_plugin_reservation_reservations',
             [
                 'baselinedate' => $end,
