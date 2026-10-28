@@ -73,7 +73,7 @@ function plugin_reservation_install()
     //          AND effectivedate is null
     //          AND checkindate is null
     //          ";
-    // $DB->queryOrDie($query, $DB->error());
+    // $DB->query($query, $DB->error());
 
     // add existing reservations if necessary
     $query = "SELECT *
@@ -172,7 +172,7 @@ function plugin_item_add_reservation($reservation)
 {
     global $DB;
 
-    $DB->insertOrDie('glpi_plugin_reservation_reservations', [
+    $DB->insert('glpi_plugin_reservation_reservations', [
         'reservations_id' => $reservation->fields['id'],
         'baselinedate' => $reservation->fields['end'],
     ]);
